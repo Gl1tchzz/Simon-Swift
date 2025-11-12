@@ -3,6 +3,7 @@ import swiftbot.SwiftBotAPI;
 
 public class App {
     public static void main( String[] args ){
+        //Testing SwiftBotAPI move command
         SwiftBotAPI.INSTANCE.move(100, 100, 1000);
     }
 }
