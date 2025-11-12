@@ -24,8 +24,33 @@ The program displays a sequence of colors via the SwiftBot LEDs, and the player 
 - Emmanuel Matthew – Developer
 - Naimul Alif – Developer
 
-## How to Run
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Gl1tchzz/Simon-Swift.git
-   cd Simon-Swift/src
+---
+
+## 🕹️ How to Run (Using Maven)
+
+### 1. Prerequisites
+Ensure you have the following installed:
+- **Java 17** or higher  
+- **Apache Maven 3.8+**
+
+### 2. Verify Installation:
+```bash
+java -version
+mvn -version
+```
+
+### 3. Clone the Repository
+```bash
+git clone https://github.com/Gl1tchzz/Simon-Swift.git
+cd Simon-Swift
+```
+
+### 4. Compile the Project
+```bash
+mvn clean compile
+```
+
+### 5. Run the Application
+```bash
+mvn exec:java
+```
