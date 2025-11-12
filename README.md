@@ -27,5 +27,5 @@ The program displays a sequence of colors via the SwiftBot LEDs, and the player 
 ## How to Run
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/Simon-Swift.git
+   git clone https://github.com/Gl1tchzz/Simon-Swift.git
    cd Simon-Swift/src
