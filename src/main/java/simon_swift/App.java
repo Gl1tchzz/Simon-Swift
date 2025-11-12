@@ -1,7 +1,8 @@
 package simon_swift;
+import swiftbot.SwiftBotAPI;
 
 public class App {
     public static void main( String[] args ){
-        System.out.println( "Hello World!" );
+        SwiftBotAPI.INSTANCE.move(100, 100, 1000);
     }
 }
