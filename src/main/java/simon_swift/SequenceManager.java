@@ -1,5 +1,6 @@
 package simon_swift;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -9,18 +10,25 @@ public class SequenceManager {
     private Random random;
 
     public SequenceManager() {
-
+        sequence = new ArrayList<GameColour>();
+        random = new Random();
     }
 
+    // Adds a new random colour to the sequence
     public void addNewColour() {
-        // add a random colour
+        GameColour[] colours = GameColour.values();
+        int index = random.nextInt(colours.length);
+        GameColour newColour = colours[index];
+        sequence.add(newColour);
     }
 
+    // Returns the current sequence
     public List<GameColour> getSequence() {
-        return null;
+        return sequence;
     }
 
     public void resetSequence() {
-        // clear the sequence
+        // clears the sequence
+        sequence.clear();
     }
 }

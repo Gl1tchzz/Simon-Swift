@@ -77,15 +77,27 @@ public class SimonSwiftGame {
         System.out.println("Current score: " + score);
         System.out.println("----------------------");
 
-        // Generate the Colour Sequence
-        
+        // Add new random colour to the sequence
+        sequenceManager.addNewColour();
+        List<GameColour> sequence = sequenceManager.getSequence();
 
         // Show the sequence to the player
-       
+        System.out.println("Watch the sequence...");
+        for (GameColour colour : sequence) {
+            ledController.showColour(colour, 500);
+        }
 
         // Get player input
+        System.out.println("Your turn! Repeat the sequence using buttons A, B, X, Y.");
 
-        
+        List<GameColour> userInput = new ArrayList<GameColour>();
+        for (int i = 0; i < sequence.size(); i++) {
+            System.out.println("Waiting for input " + (i + 1) + " of " + sequence.size() + "...");
+            GameColour pressed = buttonInputHandler.waitForPress();
+            userInput.add(pressed);
+            ledController.showColour(pressed, 300); // Briefly show the pressed colour
+        }
+
         // Validate the input
         boolean correct = sequenceValidator.validate(sequence, userInput);
 
@@ -95,10 +107,20 @@ public class SimonSwiftGame {
 
         System.out.println("Correct! Get ready for the next round.");
         return true;
-        
     }
 
     public void endGame() {
-        
+        System.out.println();
+        System.out.println("===== GAME SUMMARY =====");
+        System.out.println("Final Score: " + score);
+        System.out.println("Thank you for playing Simon Swift!");
+        System.out.println("========================");
+
+        if (score >= 5) {
+            celebrationController.celebrate(score);
+        }
+
+        ledController.clearLights();
+        api.disableAllButtons();
     }
 }
