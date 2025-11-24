@@ -11,6 +11,10 @@ public class ButtonInputHandler {
     public ButtonInputHandler(SwiftBotAPI api) {
         this.api = api;
         this.lastColourPressed = null;
+
+        //disble all buttons initially
+        api.disableAllButtons();
+
         enableButtons();
     }
 
