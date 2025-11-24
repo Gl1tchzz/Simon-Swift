@@ -19,6 +19,13 @@ public class ButtonInputHandler {
     }
 
     public void enableButtons() {
+
+        // Make sure each button is disabled before attaching our handler
+        api.disableButton(Button.A);
+        api.disableButton(Button.B);
+        api.disableButton(Button.X);
+        api.disableButton(Button.Y);
+        
         // A -> RED
         api.enableButton(Button.A, () -> {
             lastColourPressed = GameColour.RED;
