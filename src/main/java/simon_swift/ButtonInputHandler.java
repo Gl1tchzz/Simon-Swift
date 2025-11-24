@@ -1,6 +1,8 @@
 package simon_swift;
 
 import swiftbot.SwiftBotAPI;
+import swiftbot.Button;
+import swiftbot.ButtonFunction;
 
 public class ButtonInputHandler {
 
@@ -8,14 +10,48 @@ public class ButtonInputHandler {
     private GameColour lastColourPressed;
 
     public ButtonInputHandler(SwiftBotAPI api) {
-
+        this.api = api;
+        this.lastColourPressed = null;
+        enableButtons();
     }
 
     public void enableButtons() {
-        // enable all buttons
+        // A -> RED
+        api.enableButton(Button.A, () -> {
+            lastColourPressed = GameColour.RED;
+            System.out.println("Button A (RED) pressed");
+        });
+
+        // B -> GREEN
+        api.enableButton(Button.B, () -> {
+            lastColourPressed = GameColour.GREEN;
+            System.out.println("Button B (GREEN) pressed");
+        });
+
+        // X -> BLUE
+        api.enableButton(Button.A, () -> {
+            lastColourPressed = GameColour.BLUE;
+            System.out.println("Button X (BLUE) pressed");
+        });
+
+        // Y -> YELLOW
+        api.enableButton(Button.A, () -> {
+            lastColourPressed = GameColour.RED;
+            System.out.println("Button Y (YELLOW) pressed");
+        });
     }
 
     public GameColour waitForPress() {
-        return null;
+        lastColourPressed = null;
+
+        while (lastColourPressed == null) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return lastColourPressed;
     }
 }
