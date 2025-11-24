@@ -40,7 +40,7 @@ public class ButtonInputHandler {
 
         // Y -> YELLOW
         api.enableButton(Button.Y, () -> {
-            lastColourPressed = GameColour.RED;
+            lastColourPressed = GameColour.YELLOW;
             System.out.println("Button Y (YELLOW) pressed");
         });
     }
