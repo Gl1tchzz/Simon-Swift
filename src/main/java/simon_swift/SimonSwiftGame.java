@@ -87,6 +87,14 @@ public class SimonSwiftGame {
 
         
         // Validate the input
+        boolean correct = sequenceValidator.validate(sequence, userInput);
+
+        if(!correct) {
+            return false;
+        }
+
+        System.out.println("Correct! Get ready for the next round.");
+        return true;
         
     }
 
