@@ -124,7 +124,7 @@ public class SimonSwiftGame {
         System.out.println("========================");
 
         if (score >= 5) {
-            celebrationController.celebrate(score);
+            celebrationController.celebrate(2500);
         }
 
         ledController.clearLights();
