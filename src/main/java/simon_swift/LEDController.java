@@ -52,6 +52,35 @@ public class LEDController {
         }
     }
 
+    public void GameOverLights() {
+        int[] RED = getRgbForColour(GameColour.RED);
+
+        // Flash all lights red three times
+        for (int i = 0; i < 3; i++) {
+            // Turn all Lights Red
+            for (Underlight underlight : Underlight.values()) {
+                api.setUnderlight(underlight, RED);
+            }
+
+            // wait 500ms
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+               System.err.println("LED sleep interrupted");
+            }
+        
+            // Turn off all Lights
+            api.disableUnderlights();
+         
+            //wait another 500ms to loop
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+               System.err.println("LED sleep interrupted");
+            }
+        }
+    }
+
     // Clear all lights
     public void clearLights() {
         api.disableUnderlights();

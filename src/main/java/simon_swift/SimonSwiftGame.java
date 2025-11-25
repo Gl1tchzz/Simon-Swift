@@ -109,6 +109,7 @@ public class SimonSwiftGame {
         boolean correct = sequenceValidator.validate(sequence, userInput);
 
         if(!correct) {
+            
             return false;
         }
 
@@ -117,15 +118,17 @@ public class SimonSwiftGame {
     }
 
     public void endGame() {
+        if (score >= 5) {
+            celebrationController.celebrate(2500);
+        } else {
+            ledController.GameOverLights();
+        }
+
         System.out.println();
         System.out.println("===== GAME SUMMARY =====");
         System.out.println("Final Score: " + score);
         System.out.println("Thank you for playing Simon Swift!");
         System.out.println("========================");
-
-        if (score >= 5) {
-            celebrationController.celebrate(2500);
-        }
 
         ledController.clearLights();
         api.disableAllButtons();
