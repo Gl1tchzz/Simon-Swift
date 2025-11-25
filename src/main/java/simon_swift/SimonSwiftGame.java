@@ -32,9 +32,7 @@ public class SimonSwiftGame {
     }
 
     public void startGame() {
-        System.out.println("Welcome to Simon Swift!");
-        System.out.println("Watch the colours, then repeat them using the buttons A, B, X, Y.");
-        System.out.println();
+        AsciiUI.printWelcomeMessage();
 
         sequenceManager.resetSequence();
         score = 0;
@@ -47,7 +45,7 @@ public class SimonSwiftGame {
                 boolean sucsess = playRound();
 
                 if (!sucsess) {
-                    System.out.println("Game Over!");
+                    AsciiUI.printGameOverMessage();
                     playing = false;
                 } else {
                     score++;
@@ -57,7 +55,8 @@ public class SimonSwiftGame {
                         String answer = scanner.nextLine();
 
                         if (answer.equalsIgnoreCase("n")) {
-                            System.out.println("Thanks for playing! Your final score is: " + score);
+                            System.out.println("Thanks for playing!");
+                            AsciiUI.printGameSummary(score);
                             playing = false;
                         }
                     }
@@ -73,17 +72,14 @@ public class SimonSwiftGame {
         round++;
 
         //Display Round Info
-        System.out.println("----------------------");
-        System.out.println("Round: " + round);
-        System.out.println("Current score: " + score);
-        System.out.println("----------------------");
+        AsciiUI.printRoundHeader(round, score);
 
         // Add new random colour to the sequence
         sequenceManager.addNewColour();
         List<GameColour> sequence = sequenceManager.getSequence();
 
         // Show the sequence to the player
-        System.out.println("Watch the sequence...");
+        AsciiUI.printWatchSequence();
         for (GameColour colour : sequence) {
             ledController.showColour(colour, 500);
             try {
@@ -102,11 +98,11 @@ public class SimonSwiftGame {
         }
 
         // Get player input
-        System.out.println("Your turn! Repeat the sequence using buttons A, B, X, Y.");
+        AsciiUI.printYourTurn();
 
         List<GameColour> userInput = new ArrayList<>();
         for (int i = 0; i < sequence.size(); i++) {
-            System.out.println("Waiting for input " + (i + 1) + " of " + sequence.size() + "...");
+            AsciiUI.printWaitingForInput(i, sequence.size());
             GameColour pressed = buttonInputHandler.waitForPress();
             userInput.add(pressed);
             ledController.showColour(pressed, 300); // Briefly show the pressed colour
@@ -120,7 +116,7 @@ public class SimonSwiftGame {
             return false;
         }
 
-        System.out.println("Correct! Get ready for the next round.");
+        AsciiUI.printSequenceCorrect();
         ledController.CorrectSequenceLights();
         return true;
     }
@@ -132,14 +128,10 @@ public class SimonSwiftGame {
             ledController.GameOverLights();
         }
 
-        System.out.println();
-        System.out.println("===== GAME SUMMARY =====");
-        System.out.println("Final Score: " + score);
-        System.out.println("Thank you for playing Simon Swift!");
-        System.out.println("========================");
+        AsciiUI.printGameSummary(score);
 
         // Prompt to play again
-        System.out.println("Do you want to Play Again? (y/n): ");
+        AsciiUI.playAgainMessage();
         try (Scanner scanner = new Scanner(System.in)) {
             String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("y")) {
