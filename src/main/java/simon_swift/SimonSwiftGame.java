@@ -86,6 +86,12 @@ public class SimonSwiftGame {
         System.out.println("Watch the sequence...");
         for (GameColour colour : sequence) {
             ledController.showColour(colour, 500);
+            try {
+                Thread.sleep(250); // brief pause between colours
+            } catch (InterruptedException e) {
+               System.err.println("LED sleep interrupted");
+               Thread.currentThread().interrupt();
+            }
         }
 
         // Get player input
