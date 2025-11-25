@@ -81,6 +81,23 @@ public class LEDController {
         }
     }
 
+    public void CorrectSequenceLights() {
+        int[] GREEN = getRgbForColour(GameColour.GREEN);
+
+        // Light all LEDs green for 1 second
+        for (Underlight underlight : Underlight.values()) {
+            api.setUnderlight(underlight, GREEN);
+        }
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+           System.err.println("LED sleep interrupted");
+        }
+
+        api.disableUnderlights();
+    }
+
     // Clear all lights
     public void clearLights() {
         api.disableUnderlights();

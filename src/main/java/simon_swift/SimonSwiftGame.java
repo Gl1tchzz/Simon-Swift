@@ -121,12 +121,13 @@ public class SimonSwiftGame {
         }
 
         System.out.println("Correct! Get ready for the next round.");
+        ledController.CorrectSequenceLights();
         return true;
     }
 
     public void endGame() {
         if (score >= 5) {
-            celebrationController.celebrate(2500);
+            celebrationController.celebrate(5000);
         } else {
             ledController.GameOverLights();
         }
