@@ -94,6 +94,13 @@ public class SimonSwiftGame {
             }
         }
 
+        // Brief pause before player input
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            System.err.println("Sleep interrupted");
+        }
+
         // Get player input
         System.out.println("Your turn! Repeat the sequence using buttons A, B, X, Y.");
 
