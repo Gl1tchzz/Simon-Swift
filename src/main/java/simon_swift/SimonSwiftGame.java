@@ -7,13 +7,13 @@ import swiftbot.SwiftBotAPI;
 
 public class SimonSwiftGame {
 
-    private SwiftBotAPI api;
+    private final SwiftBotAPI api;
 
-    private LEDController ledController;
-    private ButtonInputHandler buttonInputHandler;
-    private SequenceManager sequenceManager;
-    private CelebrationController celebrationController;
-    private SequenceValidator sequenceValidator;
+    private final LEDController ledController;
+    private final ButtonInputHandler buttonInputHandler;
+    private final SequenceManager sequenceManager;
+    private final CelebrationController celebrationController;
+    private final SequenceValidator sequenceValidator;
 
     private int score;
     private int round;
@@ -41,30 +41,31 @@ public class SimonSwiftGame {
         round = 0;
 
         boolean playing = true;
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
 
-        while (playing) {
-            boolean sucsess = playRound();
+            while (playing) {
+                boolean sucsess = playRound();
 
-            if (!sucsess) {
-                System.out.println("Game Over!");
-                playing = false;
-            } else {
-                score++;
+                if (!sucsess) {
+                    System.out.println("Game Over!");
+                    playing = false;
+                } else {
+                    score++;
 
-                if (round % 5 == 0) {
-                    System.out.println("You reached round " + round + ". Do you want to continue? (y/n): ");
-                    String answer = scanner.nextLine();
+                    if (round % 5 == 0) {
+                        System.out.println("You reached round " + round + ". Do you want to continue? (y/n): ");
+                        String answer = scanner.nextLine();
 
-                    if (answer.equalsIgnoreCase("n")) {
-                        System.out.println("Thanks for playing! Your final score is: " + score);
-                        playing = false;
+                        if (answer.equalsIgnoreCase("n")) {
+                            System.out.println("Thanks for playing! Your final score is: " + score);
+                            playing = false;
+                        }
                     }
                 }
             }
+            
+            endGame();
         }
-        endGame();
-        scanner.close();
     }
 
     public boolean playRound() {
@@ -90,7 +91,7 @@ public class SimonSwiftGame {
         // Get player input
         System.out.println("Your turn! Repeat the sequence using buttons A, B, X, Y.");
 
-        List<GameColour> userInput = new ArrayList<GameColour>();
+        List<GameColour> userInput = new ArrayList<>();
         for (int i = 0; i < sequence.size(); i++) {
             System.out.println("Waiting for input " + (i + 1) + " of " + sequence.size() + "...");
             GameColour pressed = buttonInputHandler.waitForPress();

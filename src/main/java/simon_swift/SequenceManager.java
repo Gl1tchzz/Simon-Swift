@@ -6,11 +6,11 @@ import java.util.Random;
 
 public class SequenceManager {
 
-    private List<GameColour> sequence;
-    private Random random;
+    private final List<GameColour> sequence;
+    private final Random random;
 
     public SequenceManager() {
-        sequence = new ArrayList<GameColour>();
+        sequence = new ArrayList<>();
         random = new Random();
     }
 

@@ -5,7 +5,7 @@ import swiftbot.Button;
 
 public class ButtonInputHandler {
 
-    private SwiftBotAPI api;
+    private final SwiftBotAPI api;
     private GameColour lastColourPressed;
 
     public ButtonInputHandler(SwiftBotAPI api) {
@@ -18,7 +18,7 @@ public class ButtonInputHandler {
         enableButtons();
     }
 
-    public void enableButtons() {
+    private void enableButtons() {
 
         // A -> RED
         api.enableButton(Button.A, () -> {
@@ -52,7 +52,7 @@ public class ButtonInputHandler {
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("LED sleep interrupted: " + e.getMessage());
             }
         }
         
