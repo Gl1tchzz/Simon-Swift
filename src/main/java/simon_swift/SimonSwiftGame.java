@@ -138,6 +138,18 @@ public class SimonSwiftGame {
         System.out.println("Thank you for playing Simon Swift!");
         System.out.println("========================");
 
+        // Prompt to play again
+        System.out.println("Do you want to Play Again? (y/n): ");
+        try (Scanner scanner = new Scanner(System.in)) {
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase("y")) {
+                startGame();
+            } else {
+                System.out.println("Goodbye!");
+                System.exit(0);
+            }
+        }
+
         ledController.clearLights();
         api.disableAllButtons();
     }
