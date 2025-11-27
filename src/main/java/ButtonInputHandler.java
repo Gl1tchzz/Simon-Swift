@@ -1,5 +1,3 @@
-package simon_swift;
-
 import swiftbot.SwiftBotAPI;
 import swiftbot.Button;
 

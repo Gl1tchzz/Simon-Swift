@@ -1,5 +1,3 @@
-package simon_swift;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -55,7 +53,7 @@ public class SimonSwiftGame {
                         String answer = scanner.nextLine();
 
                         if (answer.equalsIgnoreCase("n")) {
-                            System.out.println("Thanks for playing!");
+                            System.out.println("See you again champ!");
                             AsciiUI.printGameSummary(score);
                             playing = false;
                         }

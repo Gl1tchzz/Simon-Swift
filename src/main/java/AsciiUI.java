@@ -1,5 +1,3 @@
-package simon_swift;
-
 public class AsciiUI {
     public static void printWelcomeMessage() {
         System.out.println("+--------------------------------------+");
@@ -58,7 +56,7 @@ public class AsciiUI {
     public static void printGameOverMessage() {
         System.out.println();
         System.out.println("+---------------------------+");
-        System.out.println("|          GAME OVER        |");
+        System.out.println("|         GAME OVER!        |");
         System.out.println("+---------------------------+");
     }
 

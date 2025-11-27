@@ -1,13 +1,8 @@
-package simon_swift;
-
 import swiftbot.SwiftBotAPI;
-import java.util.Random;
 
 public class CelebrationController {
 
     private final SwiftBotAPI swiftBot;
-    private final Random random = new Random();
-
     private final LEDController ledController;
 
 

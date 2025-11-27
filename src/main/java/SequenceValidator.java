@@ -1,5 +1,3 @@
-package simon_swift;
-
 import java.util.List;
 
 public class SequenceValidator {
@@ -15,7 +13,7 @@ public class SequenceValidator {
         for (int i = 0; i < expected.size(); i++) {
             //return false if any colour does not match
             if (expected.get(i) != userInput.get(i)) {
-                System.out.println("Mismatch at position " + i + ": expected " + expected.get(i) + " but got " + userInput.get(i));
+                AsciiUI.printSequenceIncorrect(expected.get(i), userInput.get(i), i);
                 return false;
             }
         }
