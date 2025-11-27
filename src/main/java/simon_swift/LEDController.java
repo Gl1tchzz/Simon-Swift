@@ -2,64 +2,68 @@ package simon_swift;
 
 import swiftbot.SwiftBotAPI;
 import swiftbot.Underlight;
+import java.util.Random;
 
 public class LEDController {
 
-    private final SwiftBotAPI api;
+    private final SwiftBotAPI swiftBot;
+    private static final Random RAND = new Random();
 
-    public LEDController(SwiftBotAPI api) {
-        this.api = api;
+    // RGB definitions
+    static final int[] RED = new int[]{255, 0, 0};
+    static final int[] GREEN = new int[]{0, 255, 0};
+    static final int[] BLUE = new int[]{0, 0, 255};
+    static final int[] YELLOW = new int[]{255, 255, 0};
+    static final int[] OFF = new int[]{0, 0, 0};
+    
+    static final Underlight[] LEDS = new Underlight[] {
+        Underlight.FRONT_LEFT,   // index 0 -> RED
+        Underlight.FRONT_RIGHT,  // index 1 -> BLUE
+        Underlight.BACK_LEFT,  // index 2 -> GREEN
+        Underlight.BACK_RIGHT  // index 3 -> YELLOW
+    };
+
+    static final int[][] COLOURS = new int[][] { RED, GREEN, BLUE, YELLOW };
+
+    public LEDController(SwiftBotAPI swiftBot) {
+        this.swiftBot = swiftBot;
     }
 
-    // Mapping colours to LEDs
-    private Underlight getUnderlightForColour(GameColour colour) {
+    private int colourToIndex(GameColour colour) {
         return switch (colour) {
-            case RED -> Underlight.FRONT_LEFT;
-            case BLUE -> Underlight.FRONT_RIGHT;
-            case GREEN -> Underlight.BACK_LEFT;
-            case YELLOW -> Underlight.BACK_RIGHT;
+            case RED -> 0;
+            case BLUE -> 1;
+            case GREEN -> 2;
+            case YELLOW-> 3;
         };
     }
 
-    // Mapping colours to RGB values
-    private int[] getRgbForColour(GameColour colour) {
+    public void blinkUnderlight(GameColour colour, int durationMs) {
+        int idx = colourToIndex(colour);
+        Underlight led = LEDS[idx];
+        int[] rgb = COLOURS[idx];
 
-        return switch (colour) {
-            case RED -> new int[]{255, 0, 0};
-            case BLUE -> new int[]{0, 0, 255};
-            case GREEN -> new int[]{0, 255, 0};
-            case YELLOW -> new int[]{255, 255, 0};
-        };
-    }
-
-    public void showColour(GameColour colour, int duration) {
-        Underlight led = getUnderlightForColour(colour);
-        int[] rgb = getRgbForColour(colour);
-        
-        // Display the colour
-        api.setUnderlight(led, rgb);
-
-        // Turn off after duration cooldown if specified
-        if (duration > 0) {
-            try {
-                Thread.sleep(duration);
-            } catch (InterruptedException e) {
-               System.err.println("LED sleep interrupted");
-               Thread.currentThread().interrupt();
+        try {
+            swiftBot.setUnderlight(led, rgb);
+            if (durationMs > 0) {
+                Thread.sleep(durationMs);
+                // turn off
+                swiftBot.setUnderlight(led, OFF);
             }
-
-            api.disableUnderlight(led);
+        } catch (InterruptedException e) {
+            System.err.println("LED sleep interrupted");
+            Thread.currentThread().interrupt();
         }
     }
 
     public void GameOverLights() {
-        int[] RED = getRgbForColour(GameColour.RED);
+        int[] red = RED;
 
         // Flash all lights red three times
         for (int i = 0; i < 3; i++) {
             // Turn all Lights Red
             for (Underlight underlight : Underlight.values()) {
-                api.setUnderlight(underlight, RED);
+                swiftBot.setUnderlight(underlight, red);
             }
 
             // wait 500ms
@@ -67,39 +71,67 @@ public class LEDController {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                System.err.println("LED sleep interrupted");
+               Thread.currentThread().interrupt();
             }
-        
+
             // Turn off all Lights
-            api.disableUnderlights();
-         
-            //wait another 500ms to loop
+            swiftBot.disableUnderlights();
+
+            // wait another 500ms to loop
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                System.err.println("LED sleep interrupted");
+               Thread.currentThread().interrupt();
             }
         }
     }
 
     public void CorrectSequenceLights() {
-        int[] GREEN = getRgbForColour(GameColour.GREEN);
+        int[] green = GREEN;
 
         // Light all LEDs green for 1 second
         for (Underlight underlight : Underlight.values()) {
-            api.setUnderlight(underlight, GREEN);
+            swiftBot.setUnderlight(underlight, green);
         }
 
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
            System.err.println("LED sleep interrupted");
+           Thread.currentThread().interrupt();
         }
 
-        api.disableUnderlights();
+        swiftBot.disableUnderlights();
     }
 
-    // Clear all lights
     public void clearLights() {
-        api.disableUnderlights();
+        try {
+            swiftBot.disableUnderlights();
+        } catch (Exception e) {
+            System.err.println("Error disabling underlights: " + e.getMessage());
+        }
+    }
+
+    public void blinkColoursRandomOrder(int msPerColour) {
+        boolean[] used = new boolean[4];
+        int remaining = 4;
+        while (remaining > 0) {
+            int idx = RAND.nextInt(4);
+            if (used[idx]) continue;
+            used[idx] = true;
+            remaining--;
+
+            try {
+                // set all underlights to selected colour (his fillUnderlights idea)
+                swiftBot.fillUnderlights(COLOURS[idx]);
+                Thread.sleep(msPerColour);
+            } catch (Exception e) {
+                System.err.println("Error blinking colours: " + e.getMessage());
+            }
+        }
+        try {
+            swiftBot.disableUnderlights();
+        } catch (Exception ignored) {}
     }
 }

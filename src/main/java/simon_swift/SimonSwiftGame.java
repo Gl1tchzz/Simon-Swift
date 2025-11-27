@@ -7,7 +7,7 @@ import swiftbot.SwiftBotAPI;
 
 public class SimonSwiftGame {
 
-    private final SwiftBotAPI api;
+    private final SwiftBotAPI swiftBot;
 
     private final LEDController ledController;
     private final ButtonInputHandler buttonInputHandler;
@@ -19,12 +19,12 @@ public class SimonSwiftGame {
     private int round;
 
     public SimonSwiftGame() {
-        api = SwiftBotAPI.INSTANCE;
+        swiftBot = SwiftBotAPI.INSTANCE;
 
-        ledController = new LEDController(api);
-        buttonInputHandler = new ButtonInputHandler(api);
+        ledController = new LEDController(swiftBot);
+        buttonInputHandler = new ButtonInputHandler(swiftBot);
         sequenceManager = new SequenceManager();
-        celebrationController = new CelebrationController(api);
+        celebrationController = new CelebrationController(swiftBot);
         sequenceValidator = new SequenceValidator();
 
         score = 0;
@@ -81,7 +81,7 @@ public class SimonSwiftGame {
         // Show the sequence to the player
         AsciiUI.printWatchSequence();
         for (GameColour colour : sequence) {
-            ledController.showColour(colour, 500);
+            ledController.blinkUnderlight(colour, 500);
             try {
                 Thread.sleep(250); // brief pause between colours
             } catch (InterruptedException e) {
@@ -105,7 +105,7 @@ public class SimonSwiftGame {
             AsciiUI.printWaitingForInput(i, sequence.size());
             GameColour pressed = buttonInputHandler.waitForPress();
             userInput.add(pressed);
-            ledController.showColour(pressed, 300); // Briefly show the pressed colour
+            ledController.blinkUnderlight(pressed, 300); // Briefly show the pressed colour
         }
 
         // Validate the input
@@ -123,7 +123,7 @@ public class SimonSwiftGame {
 
     public void endGame() {
         if (score >= 5) {
-            celebrationController.celebrate(5000);
+            celebrationController.celebrate(score);
         } else {
             ledController.GameOverLights();
         }
@@ -143,6 +143,6 @@ public class SimonSwiftGame {
         }
 
         ledController.clearLights();
-        api.disableAllButtons();
+        swiftBot.disableAllButtons();
     }
 }
