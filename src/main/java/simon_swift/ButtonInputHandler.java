@@ -5,38 +5,43 @@ import swiftbot.Button;
 
 public class ButtonInputHandler {
 
-    private SwiftBotAPI api;
+    private final SwiftBotAPI swiftBot;
     private GameColour lastColourPressed;
 
-    public ButtonInputHandler(SwiftBotAPI api) {
-        this.api = api;
+    public ButtonInputHandler(SwiftBotAPI swiftBot) {
+        this.swiftBot = swiftBot;
         this.lastColourPressed = null;
+
+        //disble all buttons initially
+        swiftBot.disableAllButtons();
+
         enableButtons();
     }
 
-    public void enableButtons() {
+    private void enableButtons() {
+
         // A -> RED
-        api.enableButton(Button.A, () -> {
+        swiftBot.enableButton(Button.A, () -> {
             lastColourPressed = GameColour.RED;
-            System.out.println("Button A (RED) pressed");
+            //System.out.println("Button A (RED) pressed");
         });
 
         // B -> GREEN
-        api.enableButton(Button.B, () -> {
+        swiftBot.enableButton(Button.B, () -> {
             lastColourPressed = GameColour.GREEN;
-            System.out.println("Button B (GREEN) pressed");
+            //System.out.println("Button B (GREEN) pressed");
         });
 
         // X -> BLUE
-        api.enableButton(Button.A, () -> {
+        swiftBot.enableButton(Button.X, () -> {
             lastColourPressed = GameColour.BLUE;
-            System.out.println("Button X (BLUE) pressed");
+            //System.out.println("Button X (BLUE) pressed");
         });
 
         // Y -> YELLOW
-        api.enableButton(Button.A, () -> {
-            lastColourPressed = GameColour.RED;
-            System.out.println("Button Y (YELLOW) pressed");
+        swiftBot.enableButton(Button.Y, () -> {
+            lastColourPressed = GameColour.YELLOW;
+            //System.out.println("Button Y (YELLOW) pressed");
         });
     }
 
@@ -47,7 +52,7 @@ public class ButtonInputHandler {
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("LED sleep interrupted: " + e.getMessage());
             }
         }
         

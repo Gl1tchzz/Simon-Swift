@@ -21,7 +21,7 @@ public class SequenceValidator {
         }
 
         // If all colours match return true
-        System.out.println("Sequence is correct!");
+       // System.out.println("Sequence is correct!");
         return true;
     }
 }

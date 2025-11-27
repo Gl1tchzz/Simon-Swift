@@ -96,7 +96,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
-          <mainClass>simon_swift.App</mainClass>
+          <mainClass>simon_swift.Main</mainClass>
         </configuration>
       </plugin>
     </plugins>
