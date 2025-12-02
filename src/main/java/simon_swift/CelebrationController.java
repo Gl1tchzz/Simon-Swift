@@ -1,3 +1,4 @@
+package simon_swift;
 import swiftbot.SwiftBotAPI;
 
 public class CelebrationController {

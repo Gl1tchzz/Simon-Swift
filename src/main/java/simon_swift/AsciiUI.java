@@ -1,3 +1,4 @@
+package simon_swift;
 public class AsciiUI {
     public static void printWelcomeMessage() {
         System.out.println("+--------------------------------------+");
