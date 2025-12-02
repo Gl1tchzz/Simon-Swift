@@ -26,7 +26,7 @@ The program displays a sequence of colors via the SwiftBot LEDs, and the player 
 
 ---
 
-## 🕹️ How to Run (Using Maven)
+## 🕹️ How to Run
 
 ### 1. Prerequisites
 Ensure you have the following installed:
@@ -47,10 +47,11 @@ cd Simon-Swift
 
 ### 4. Compile the Project
 ```bash
-mvn clean compile
+mkdir -p bin
+javac -cp "lib/SwiftBot-API-6.0.0.jar -d bin src/*.java
 ```
 
 ### 5. Run the Application
 ```bash
-mvn exec:java
+java -cp "lib/SwiftBot-API-6.0.0.jar:bin" Main
 ```
