@@ -47,10 +47,10 @@ cd Simon-Swift
 ### 4. Compile the Project
 ```bash
 mkdir -p bin
-javac -cp "lib/SwiftBot-API-6.0.0.jar -d bin src/*.java
+javac -cp lib/SwiftBot-API-6.0.0.jar -d bin src/*.java
 ```
 
 ### 5. Run the Application
 ```bash
-java -cp "lib/SwiftBot-API-6.0.0.jar:bin" Main
+java -cp lib/SwiftBot-API-6.0.0.jar:bin Main
 ```
