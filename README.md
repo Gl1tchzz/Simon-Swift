@@ -36,7 +36,6 @@ Ensure you have the following installed:
 ### 2. Verify Installation:
 ```bash
 java -version
-mvn -version
 ```
 
 ### 3. Clone the Repository
