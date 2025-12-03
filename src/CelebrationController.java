@@ -24,7 +24,8 @@ public class CelebrationController {
     public void celebrate(int score) {
         System.out.println("Performing celebration dive!");
         // blink before move
-        ledController.blinkColoursRandomOrder(300);
+        
+        ledController.RandomLightSequence(300);
 
         // compute speed percent
         int speedPercent = score * 10;
@@ -58,11 +59,11 @@ public class CelebrationController {
             // right arm: right wheel forward, left wheel forward a bit slower to curve left
             swiftBot.move(speedPercent / 2, speedPercent, (int) timeMs);
             Thread.sleep(250);
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             System.out.println("Warning: movement error during celebration (ignored).");
         }
 
         // blink after move
-        ledController.blinkColoursRandomOrder(300);
+        ledController.RandomLightSequence(300);
     }
 }

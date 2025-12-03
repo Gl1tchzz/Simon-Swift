@@ -111,7 +111,7 @@ public class LEDController {
         }
     }
 
-    public void blinkColoursRandomOrder(int msPerColour) {
+    public void RandomLightSequence(int msPerColour) {
         boolean[] used = new boolean[4];
         int remaining = 4;
         while (remaining > 0) {
@@ -124,7 +124,7 @@ public class LEDController {
                 // set all underlights to selected colour (his fillUnderlights idea)
                 swiftBot.fillUnderlights(COLOURS[idx]);
                 Thread.sleep(msPerColour);
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 System.err.println("Error blinking colours: " + e.getMessage());
             }
         }

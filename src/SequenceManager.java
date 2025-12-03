@@ -1,32 +1,37 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import java.util.List;
 
 public class SequenceManager {
 
-    private final List<GameColour> sequence;
-    private final Random random;
+    private final Random rand;
+    private final List<Integer> sequenceList;
 
+    //to initialise sequence
     public SequenceManager() {
-        sequence = new ArrayList<>();
-        random = new Random();
+        sequenceList = new ArrayList<>();
+        rand = new Random();
     }
 
-    // Adds a new random colour to the sequence
-    public void addNewColour() {
-        GameColour[] colours = GameColour.values();
-        int index = random.nextInt(colours.length);
-        GameColour newColour = colours[index];
-        sequence.add(newColour);
+    //generates and appends new colourIndex to list
+    public void nextColour() {
+        int newColour = rand.nextInt(0,4);
+        sequenceList.add(newColour);
     }
 
-    // Returns the current sequence
+    //returns current sequence of colours
     public List<GameColour> getSequence() {
-        return sequence;
+        List<GameColour> colourSequence = new ArrayList<>();
+        GameColour[] colours = GameColour.values();
+        for (Integer i : sequenceList) {
+            colourSequence.add(colours[i]);
+        }
+        return colourSequence;
     }
 
+    //resets the sequence
     public void resetSequence() {
-        // clears the sequence
-        sequence.clear();
+        sequenceList.clear();
     }
+
 }
