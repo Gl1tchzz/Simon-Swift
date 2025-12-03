@@ -74,7 +74,7 @@ public class SimonSwiftGame {
         AsciiUI.printRoundHeader(round, score);
 
         // Add new random colour to the sequence
-        sequenceManager.addNewColour();
+        sequenceManager.nextColour();
         List<GameColour> sequence = sequenceManager.getSequence();
 
         // Show the sequence to the player

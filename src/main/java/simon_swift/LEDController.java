@@ -112,7 +112,7 @@ public class LEDController {
         }
     }
 
-    public void blinkColoursRandomOrder(int msPerColour) {
+    public void RandomLightSequence(int msPerColour) {
         boolean[] used = new boolean[4];
         int remaining = 4;
         while (remaining > 0) {

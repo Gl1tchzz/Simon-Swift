@@ -25,7 +25,8 @@ public class CelebrationController {
     public void celebrate(int score) {
         System.out.println("Performing celebration dive!");
         // blink before move
-        ledController.blinkColoursRandomOrder(300);
+        
+        ledController.RandomLightSequence(300);
 
         // compute speed percent
         int speedPercent = score * 10;
@@ -64,6 +65,6 @@ public class CelebrationController {
         }
 
         // blink after move
-        ledController.blinkColoursRandomOrder(300);
+        ledController.RandomLightSequence(300);
     }
 }
