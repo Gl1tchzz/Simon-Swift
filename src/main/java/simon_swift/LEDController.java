@@ -125,7 +125,7 @@ public class LEDController {
                 // set all underlights to selected colour (his fillUnderlights idea)
                 swiftBot.fillUnderlights(COLOURS[idx]);
                 Thread.sleep(msPerColour);
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 System.err.println("Error blinking colours: " + e.getMessage());
             }
         }

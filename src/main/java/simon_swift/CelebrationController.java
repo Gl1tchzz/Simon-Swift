@@ -60,7 +60,7 @@ public class CelebrationController {
             // right arm: right wheel forward, left wheel forward a bit slower to curve left
             swiftBot.move(speedPercent / 2, speedPercent, (int) timeMs);
             Thread.sleep(250);
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             System.out.println("Warning: movement error during celebration (ignored).");
         }
 
